@@ -10,7 +10,7 @@ object Application extends Controller {
   def index = Action { implicit request =>
     val search = request.cookies.get("searchSpecies")
     if (search == None) {
-      Ok("DOG OR CAT?")
+      Ok(views.html.index("DOG OR CAT?"))
     } else {
       Ok("Searching for " + search)
     }
