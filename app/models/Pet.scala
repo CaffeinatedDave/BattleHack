@@ -28,11 +28,11 @@ object Pet {
     get[String]("profile") ~
     get[String]("species") ~
     get[Long]("shelter") map {
-      case (i~n~a~im~p~s~sh) => Pet(i, n, a, im, p, getSpecies(s), Shelter.getById(sh).getOrElse(Shelter.dummy))
+      case (i~n~a~im~p~s~sh) => Pet(i, n, a, "uploads/images/" + im, p, getSpecies(s), Shelter.getById(sh).getOrElse(Shelter.dummy))
     }
   }
 
-  val dummy = Pet(1, "Fido", 2, "1413042069069.jpg", "This is a pet, please adopt it!", 'Moose, Shelter.getById(-1).getOrElse(Shelter.dummy))
+  val dummy = Pet(-1, "Fido", 2, "images/moose.jpg", "This is a pet, please adopt it!", 'Moose, Shelter.getById(-1).getOrElse(Shelter.dummy))
 
   
   def getById(id: Long): Pet = {

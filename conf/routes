@@ -3,20 +3,21 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
-GET     /review                     controllers.Application.review
-GET     /profile/$id<[0-9]+>        controllers.Application.profile(id: Long)
-GET     /shelter/$id<[0-9]+>        controllers.Application.shelter(id: Long)
+GET     /                            controllers.Application.index
+GET     /vote/$id<[0-9]+>/$res<[YN]> controllers.Application.vote(id: Long, res: String)
+GET     /review                      controllers.Application.review
+GET     /profile/$id<[0-9]+>         controllers.Application.profile(id: Long)
+GET     /shelter/$id<[0-9]+>         controllers.Application.shelter(id: Long)
 GET     /search/$search<[CDX]>       controllers.Application.search(search: String)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /assets/*file                controllers.Assets.at(path="/public", file)
 
 # API calls
-POST    /api/pet                    controllers.API.addPet
-GET     /api/pet                    controllers.API.addPetForm
-POST    /api/shelter                controllers.API.addShelter
-GET     /api/shelter                controllers.API.addShelterForm
+POST    /api/pet                     controllers.API.addPet
+GET     /api/pet                     controllers.API.addPetForm
+POST    /api/shelter                 controllers.API.addShelter
+GET     /api/shelter                 controllers.API.addShelterForm
 
 # Catch all...
-GET     /*x                         controllers.Application.redirect(x)
+GET     /*x                          controllers.Application.redirect(x)

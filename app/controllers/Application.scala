@@ -22,6 +22,21 @@ object Application extends Controller {
     }
   }
 
+  def vote(id: Long, vote: String) = Action { implicit request =>
+    val cookie = vote match {
+      case "Y" => request.cookies.get("wantPets")
+      case "N" => request.cookies.get("rejectPets")
+      case _ => None
+    }
+    val newCookie = (cookie, vote) match {
+      case (Some(c), _) => Cookie(c.name, c.value + "|" + id)
+      case (None, "Y")  => Cookie("wantPets", id.toString)
+      case (None, "N")  => Cookie("rejectPets", id.toString)
+      case (None, _)    => Cookie("", "")
+    }
+    Redirect(routes.Application.index).withCookies(newCookie)
+  }
+
   def review = Action { implicit request =>
     // Get cookies - show matches:
     request.cookies.get("matches") match {
