@@ -47,7 +47,10 @@ object Pet {
     DB.withConnection { implicit c =>
       SQL("""
         select * from tPet
-      """).as(parse*).filter(x => !reject.contains(x.id)).head
+      """).as(parse*).filter(x => !reject.contains(x.id)).headOption match {
+        case None    => Pet.dummy
+        case Some(p) => p
+      }
     }
   }
 
