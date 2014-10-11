@@ -41,10 +41,10 @@ object API extends Controller {
   }
 
   def addShelter = Action { implicit request =>
-    Ok("")
+    Ok("Not implemented")
   }
   def addShelterForm = Action { implicit request =>
-    Ok("Form goes here...")
+    Ok("Not implemented")
   }
 
 }

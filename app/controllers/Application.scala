@@ -8,7 +8,14 @@ object Application extends Controller {
   
   case class Search(species: Symbol, age_min: Int, age_max: Int)
 
-  def index = Action { implicit request =>
+  def search(search: String) = Action {
+    search match {
+      case "X" => Redirect(routes.Application.index).discardingCookies(DiscardingCookie("searchSpecies"))
+      case a => Redirect(routes.Application.index).withCookies(Cookie("searchSpecies", a)) 
+    }
+  }
+  
+  def index() = Action { implicit request =>
     request.cookies.get("searchSpecies") match {
       case None    => Ok(views.html.index("DOG OR CAT?"))
       case Some(c) => Ok("Searching for " + c.value)
