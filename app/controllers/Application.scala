@@ -5,7 +5,7 @@ import play.api.mvc._
 import models._
 
 object Application extends Controller {
-  
+
   case class Search(species: Symbol, age_min: Int, age_max: Int)
 
   private def getIdList(cookie: String, request: Request[AnyContent]): List[Long] = { 

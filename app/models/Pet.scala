@@ -33,7 +33,7 @@ object Pet {
     }
   }
 
-  val dummy = Pet(-1, "Fido", 2, "images/moose.jpg", "This is a pet, please adopt it!", 'Moose, Shelter.getById(-1).getOrElse(Shelter.dummy))
+  val dummy = Pet(-1, "Mookie", 2, "images/moose.jpg", "This is a pet, please adopt it!", 'Moose, Shelter.getById(-1).getOrElse(Shelter.dummy))
 
   
   def getById(id: Long): Pet = {
