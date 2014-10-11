@@ -4,6 +4,8 @@
 
 # Home page
 GET     /                           controllers.Application.index
+GET     /review                     controllers.Application.review
+GET     /profile/$id<[0-9]+>        controllers.Application.profile(id: Int)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
