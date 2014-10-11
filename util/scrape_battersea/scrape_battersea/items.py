@@ -13,3 +13,4 @@ class Dog(scrapy.Item):
     images = scrapy.Field()
     name = scrapy.Field()
     description = scrapy.Field()
+    species = scrapy.Field()  # cat is a special case of dog. true fact.
