@@ -29,7 +29,7 @@ object Application extends Controller {
   }
 
   def shelter(id: Long) = Action {
-    val shelter = Shelter.getById(id)
+    val shelter = Shelter.getById(id).getOrElse(Shelter.dummy)
     Ok("A shelter profile for " + shelter.name + "!")
   }
 

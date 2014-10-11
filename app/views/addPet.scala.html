@@ -1,0 +1,14 @@
+@()
+
+@main("API forms") {
+  <form action="" method="POST" enctype="multipart/form-data">
+    Name: <input type="text" name="name"/></br>
+    Age: <input type="text" name="age"/></br>
+    Image: <input type="file" name="image" accept="image/*"><br/>
+    Profile: <textarea name="profile"></textarea><br/>
+    Species: <select name="species"><option value="D">Dog</option><option value="C">Cat</option><option value="M">Moose</option></select><br/>
+    Shelter: <input type="text" name="shelter" value="1"/><br/>
+    <input type="submit" value="Submit!"/>
+    
+  </form>
+}

@@ -18,8 +18,15 @@ object Shelter {
       case (i~n) => Shelter(i, n) 
     }
   }
-  
-  def getById(id: Long): Shelter = {
-    new Shelter(id, "DUMMY DATA - HOOK INTO DB")
+
+  val dummy = Shelter(-1, "DUMMY DATA - SOMETHING'S BROKEN!")
+
+  def getById(id: Long): Option[Shelter] = {
+    DB.withConnection { implicit c =>
+      SQL(
+        """ 
+          select id, name from tShelter where id = {id}
+        """).on('id -> id).as(parse.singleOpt)
+    }   
   }
 }

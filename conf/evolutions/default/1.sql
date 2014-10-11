@@ -12,7 +12,7 @@ CREATE TABLE tShelter(
     info          text
 );
 
-CREATE UNIQUE INDEX iShetler1 ON tShelter (name);
+CREATE UNIQUE INDEX iShelter1 ON tShelter (name);
 
 INSERT INTO tShelter(name, contact_no, contact_email, addr_1, addr_2, addr_3, addr_4, info) values (
 	'Battersea Dogs and Cats Home London',
