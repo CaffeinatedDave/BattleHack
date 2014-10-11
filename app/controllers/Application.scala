@@ -25,7 +25,7 @@ object Application extends Controller {
   def index() = Action { implicit request =>
     request.cookies.get("searchSpecies") match {
       case None    => Ok(views.html.index("CAT OR DOG?"))
-      case Some(c) => Ok(views.html.vote(Pet.getRandomPet(getIdList("rejectPets", request))))
+      case Some(c) => Ok(views.html.vote(Pet.getRandomPet(getIdList("rejectPets", request) ::: getIdList("wantPets", request))))
     }
   }
 
@@ -46,9 +46,9 @@ object Application extends Controller {
 
   def review = Action { implicit request =>
     // Get cookies - show matches:
-    request.cookies.get("matches") match {
-      case None    => Redirect(routes.Application.index).flashing("error" -> "You haven't favourited any pets yet!")
-      case Some(c) => Ok("Reviewing: " + getIdList("wantPets", request))
+    getIdList("wantPets", request) match {
+      case Nil    => Redirect(routes.Application.index).flashing("error" -> "You haven't favourited any pets yet!")
+      case l      => Ok(views.html.matches(Pet.getPetList(l)))
     }
   }
 
