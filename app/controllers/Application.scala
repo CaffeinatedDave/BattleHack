@@ -17,8 +17,8 @@ object Application extends Controller {
   
   def index() = Action { implicit request =>
     request.cookies.get("searchSpecies") match {
-      case None    => Ok(views.html.index("DOG OR CAT?"))
-      case Some(c) => Ok("Searching for " + c.value)
+      case None    => Ok(views.html.index("CAT OR DOG?"))
+      case Some(c) => Ok(views.html.vote(Pet.getRandomPet(List())))
     }
   }
 
@@ -32,7 +32,7 @@ object Application extends Controller {
 
   def profile(id: Long) = Action {
     val pet = Pet.getById(id)
-    Ok("A profile for " + pet.name + "!")
+    Ok(views.html.profile(pet))
   }
 
   def shelter(id: Long) = Action {

@@ -32,12 +32,19 @@ object Pet {
     }
   }
 
+  val dummy = Pet(1, "Fido", 2, "1413042069069.jpg", "This is a pet, please adopt it!", 'Moose, Shelter.getById(-1).getOrElse(Shelter.dummy))
+
+  
   def getById(id: Long): Pet = {
-    Pet(id, "Fido v" + id.toString, 5, "image", "This is a pet, please adopt it!", 'Moose, Shelter.getById(-1).getOrElse(Shelter.dummy))
+    DB.withConnection { implicit c => 
+      SQL(""" 
+        select * from tPet where id = {id}
+      """).on('id -> id).as(parse.singleOpt).getOrElse(Pet.dummy)
+    }
   }
   
   def getRandomPet(reject: List[Long]): Pet = {
-    Pet(1, "Fido", 2, "image", "This is a pet, please adopt it!", 'Moose, Shelter.getById(-1).getOrElse(Shelter.dummy))
+    Pet.dummy
   }
 
   def getPetList(wanted: List[Long]): List[Pet] = {

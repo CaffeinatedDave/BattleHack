@@ -2,9 +2,18 @@
 
 @main("Welcome to Play 2.1") {
     <div class="jumbotron">
-    <center>
-    <h1>@message</h1>
-        <a href="@routes.Application.search("C")"><img src="@routes.Assets.at("images/cat.png")" alt="Show me cats" title="Cats" width="256" height="256"/></a>
-        <a href="@routes.Application.search("D")"><img src="@routes.Assets.at("images/dog.png")" alt="Show me dogs" title="Dogs" width="256" height="256"/></a>
-    </center></div>
+      <h1 style="margin: 0; width: 100%; text-align: center;">@message</h1>
+      <div class="row-fluid show-grid">
+        <div class="main-col col-lg-6 clearfix col-md-6 col-sm-6 col-xs-6">
+          <a href="@routes.Application.search("C")">
+            <img src="@routes.Assets.at("images/cat.png")" alt="Show me cats" title="Cats" style="width:80%; position: relative; padding: 0; margin: 10px 10%;"/>
+          </a>
+        </div>
+        <div class="main-col col-lg-6 clearfix col-md-6 col-sm-6 col-xs-6">
+          <a href="@routes.Application.search("D")">
+            <img src="@routes.Assets.at("images/dog.png")" alt="Show me dogs" title="Dogs" style="width:80%; position: relative; padding: 0; margin: 10px 10%;"/>
+          </a>
+        </div>
+      </div>
+    </div>
 }
