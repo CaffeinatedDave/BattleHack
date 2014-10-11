@@ -3,7 +3,7 @@
 @main("DO YOU LIEK PUPPIES!?") {
   <img src="@routes.Assets.at(pet.image)" style="width: 100%; position: relative;"/><br/>
   <div class="row">
-    <div class="span6" style="float:left; text-align: center; margin: auto;"><a href="@routes.Application.vote(pet.id, "N")">No</a></div>
-    <div class="span6" style="float:right; text-align: center; margin: auto;"><a href="@routes.Application.vote(pet.id, "Y")">Yes</a></div>
+    <div class="span6" style="float:left; text-align: center; margin: auto;"><a href="@routes.Application.vote(pet.id, "N")"><img src="@routes.Assets.at("images/cross.png")"></a></div>
+    <div class="span6" style="float:right; text-align: center; margin: auto;"><a href="@routes.Application.vote(pet.id, "Y")"><img src="@routes.Assets.at("images/tick.png")"></a></div>
   </div>
 }
