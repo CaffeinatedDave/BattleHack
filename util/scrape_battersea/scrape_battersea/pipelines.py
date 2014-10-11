@@ -15,10 +15,12 @@ class ScrapeBatterseaPipeline(object):
         data = {'name': item['name'], 'age': '1', 'shelter': '1', 'species': 'D', 'profile': item['description']}
         data['name'] = 'morris'
         data['profile'] = 'a dog'
-        files = {'file': image}
+        files = {'image': image}
         print 'Here goes...'
         print data
         print files
-        requests.post('http://localhost:9000/', data=data, files=files)
-        print 'YEEHAW'
+        response = requests.post('http://localhost:9000/api/pet', data=data, files=files)
+        print 'Got response...'
+        print response.content
+        print response.status_code
         return item
