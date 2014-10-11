@@ -1,0 +1,13 @@
+.main-col {
+background-color: #eee;
+}
+
+.container, body {
+/*background-color: #666;*/
+}
+
+html, body, main-col .container {
+	min-height: 100%;
+	height: 100%;
+	background-color: #eee;
+}

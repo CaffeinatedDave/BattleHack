@@ -1,7 +1,10 @@
 @(message: String)
 
 @main("Welcome to Play 2.1") {
-    
-    <p>@message</p>
-    
+    <div class="jumbotron">
+    <center>
+    <h1>@message</h1>
+        <img src="@routes.Assets.at("images/cat.png")" alt="Show me cats" title="Cats" width="256" height="256"/>
+        <img src="@routes.Assets.at("images/dog.png")" alt="Show me dogs" title="Dogs" width="256" height="256"/>
+    </center></div>
 }
