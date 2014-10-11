@@ -1,4 +1,4 @@
-@(pet: Pet)
+@(pet: Pet)(implicit flash : Flash)
 
 @main("YOU LIEKED THIS PUPPIE!") {
   <img src="@routes.Assets.at(pet.image)" style="width: 60%; position: relative; margin: 10px 20%;"/><br/>

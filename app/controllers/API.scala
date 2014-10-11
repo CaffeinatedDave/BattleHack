@@ -36,7 +36,7 @@ object API extends Controller {
     )
   }
 
-  def addPetForm = Action {
+  def addPetForm = Action { implicit request =>
     Ok(views.html.addPet())
   }
 

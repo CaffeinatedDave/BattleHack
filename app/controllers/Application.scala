@@ -8,6 +8,13 @@ object Application extends Controller {
   
   case class Search(species: Symbol, age_min: Int, age_max: Int)
 
+  private def getIdList(cookie: String, request: Request[AnyContent]): List[Long] = { 
+    request.cookies.get(cookie) match {
+      case Some(s) if (s.value != "") => s.value.split('|').map(_.toLong).toList
+      case _ => List()
+    }
+  }
+  
   def search(search: String) = Action {
     search match {
       case "X" => Redirect(routes.Application.index).discardingCookies(DiscardingCookie("searchSpecies"))
@@ -18,21 +25,21 @@ object Application extends Controller {
   def index() = Action { implicit request =>
     request.cookies.get("searchSpecies") match {
       case None    => Ok(views.html.index("CAT OR DOG?"))
-      case Some(c) => Ok(views.html.vote(Pet.getRandomPet(List())))
+      case Some(c) => Ok(views.html.vote(Pet.getRandomPet(getIdList("rejectPets", request))))
     }
   }
 
   def vote(id: Long, vote: String) = Action { implicit request =>
-    val cookie = vote match {
-      case "Y" => request.cookies.get("wantPets")
-      case "N" => request.cookies.get("rejectPets")
-      case _ => None
+    val list = vote match {
+      case "Y" => getIdList("wantPets", request).toSet
+      case "N" => getIdList("rejectPets", request).toSet
+      case _ => Set[Long]()
     }
-    val newCookie = (cookie, vote) match {
-      case (Some(c), _) => Cookie(c.name, c.value + "|" + id)
-      case (None, "Y")  => Cookie("wantPets", id.toString)
-      case (None, "N")  => Cookie("rejectPets", id.toString)
-      case (None, _)    => Cookie("", "")
+    val newList = (list + id).toList
+    val newCookie = (vote) match {
+      case "Y"  => Cookie("wantPets", newList.mkString("|"))
+      case "N"  => Cookie("rejectPets", newList.mkString("|"))
+      case _    => Cookie("", "")
     }
     Redirect(routes.Application.index).withCookies(newCookie)
   }
@@ -41,23 +48,23 @@ object Application extends Controller {
     // Get cookies - show matches:
     request.cookies.get("matches") match {
       case None    => Redirect(routes.Application.index).flashing("error" -> "You haven't favourited any pets yet!")
-      case Some(c) => Ok("Reviewing stuff!")
+      case Some(c) => Ok("Reviewing: " + getIdList("wantPets", request))
     }
   }
 
-  def profile(id: Long) = Action {
+  def profile(id: Long) = Action { implicit request =>
     val pet = Pet.getById(id)
     Ok(views.html.profile(pet))
   }
 
-  def shelter(id: Long) = Action {
+  def shelter(id: Long) = Action { implicit request =>
     val shelter = Shelter.getById(id).getOrElse(Shelter.dummy)
     Ok("A shelter profile for " + shelter.name + "!")
   }
 
   // Catch all action...
-  def redirect(path: Any) = Action {
-    Redirect(routes.Application.index).flashing("error" -> "No found")
+  def redirect(path: Any) = Action { implicit request =>
+    Redirect(routes.Application.index).flashing("error" -> "Not found")
   }
   
 }

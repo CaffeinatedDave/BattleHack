@@ -8,6 +8,7 @@ import java.sql.SQLException
 import play.api.Logger
 import scala.util.parsing.combinator._
 import controllers.routes
+import scala.util.Random
 
 case class Pet(id: Long, name: String, age: Int, image: String, profile: String, species: Symbol, shelter: Shelter)
 
@@ -44,14 +45,14 @@ object Pet {
   }
   
   def getRandomPet(reject: List[Long]): Pet = {
-    DB.withConnection { implicit c =>
+    val allPets = DB.withConnection { implicit c =>
       SQL("""
         select * from tPet
-      """).as(parse*).filter(x => !reject.contains(x.id)).headOption match {
-        case None    => Pet.dummy
-        case Some(p) => p
-      }
+      """).as(parse*).filter(x => !reject.contains(x.id))
     }
+
+    if (allPets.isEmpty) dummy
+    else allPets(Random.nextInt(allPets.length))
   }
 
   def getPetList(wanted: List[Long]): List[Pet] = {
