@@ -27,7 +27,7 @@ object Pet {
     get[String]("image") ~ 
     get[String]("profile") ~
     get[String]("species") ~
-    get[Long]("shelter") map {
+    get[Long]("shelter_id") map {
       case (i~n~a~im~p~s~sh) => Pet(i, n, a, "uploads/images/" + im, p, getSpecies(s), Shelter.getById(sh).getOrElse(Shelter.dummy))
     }
   }
@@ -44,7 +44,11 @@ object Pet {
   }
   
   def getRandomPet(reject: List[Long]): Pet = {
-    Pet.dummy
+    DB.withConnection { implicit c =>
+      SQL("""
+        select * from tPet
+      """).as(parse*).filter(x => !reject.contains(x.id)).head
+    }
   }
 
   def getPetList(wanted: List[Long]): List[Pet] = {
