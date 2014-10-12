@@ -1,6 +1,7 @@
 @(pet: Pet)(implicit flash : Flash)
 
 @main("Adoptr") {
+<div class="jumbotron">
   <div class="row-fluid">
     <div class="main-col col-lg-2 clearfix col-md-2 col-sm-2 col-xs-2" style="text-align: center;">
       <a href="@routes.Application.vote(pet.id, "N")">
@@ -21,4 +22,5 @@
     <a href="@routes.Application.review" />Review Matches</a><br/>
     <a href="@routes.Application.search("X")" />Restart</a>
   </div>
+</div>
 }

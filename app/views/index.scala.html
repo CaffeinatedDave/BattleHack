@@ -1,8 +1,8 @@
-@(message: String)(implicit flash : Flash)
+@()(implicit flash : Flash)
 
 @main("Adoptr") {
     <div class="jumbotron">
-      <h1 style="margin: 0; width: 100%; text-align: center;">@message</h1>
+      <h1 style="margin: 0; width: 100%; text-align: center;">Are you interested in Cats or Dogs?</h1>
       <div class="row-fluid show-grid">
         <div class="main-col col-lg-6 clearfix col-md-6 col-sm-6 col-xs-6">
           <a href="@routes.Application.search("C")">

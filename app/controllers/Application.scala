@@ -6,8 +6,6 @@ import models._
 
 object Application extends Controller {
 
-  case class Search(species: Symbol = 'All, age_min: Int = 0, age_max: Int = 100)
-
   private def getIdList(cookie: String, request: Request[AnyContent]): List[Long] = { 
     request.cookies.get(cookie) match {
       case Some(s) if (s.value != "") => s.value.split('|').map(_.toLong).toList
@@ -17,7 +15,7 @@ object Application extends Controller {
   
   def search(search: String) = Action {
     search match {
-      case "X" => Redirect(routes.Application.index).discardingCookies("searchString", "wantPets", "rejectPets")
+      case "X" => Redirect(routes.Application.index).discardingCookies(DiscardingCookie("searchString"), DiscardingCookie("wantPets"), DiscardingCookie("rejectPets"))
       case a => Redirect(routes.Application.index).withCookies(Cookie("searchString", a)) 
     }
   }
@@ -28,7 +26,7 @@ object Application extends Controller {
       case Some(c) if (c.value == "C") => Ok(views.html.vote(Pet.getRandomPet("C", getIdList("rejectPets", request) ::: getIdList("wantPets", request))))
       case Some(c) if (c.value == "D") => Ok(views.html.vote(Pet.getRandomPet("D", getIdList("rejectPets", request) ::: getIdList("wantPets", request))))
       case Some(c) => Ok(views.html.vote(Pet.getRandomPet("A", getIdList("rejectPets", request) ::: getIdList("wantPets", request))))
-      case _ => Ok(views.html.index("CAT OR DOG?")).discardingCookies("searchSpecies")
+      case _ => Ok(views.html.index()).discardingCookies(DiscardingCookie("searchSpecies"))
     }
   }
 
@@ -51,6 +49,7 @@ object Application extends Controller {
     // Get cookies - show matches:
     getIdList("wantPets", request) match {
       case Nil    => Redirect(routes.Application.index).flashing("error" -> "You haven't favourited any pets yet!")
+      case h :: Nil => Redirect(routes.Application.profile(h))
       case l      => Ok(views.html.matches(Pet.getPetList(l)))
     }
   }
