@@ -1,14 +1,14 @@
 @(pet: Pet)(implicit flash : Flash)
 
-@main("YOU LIEKED THIS PUPPIE!") {
-  <img src="@pet.image" style="width: 60%; position: relative; margin: 10px 20%;"/><br/>
+@main("Adoptr") {
+  <img src="@pet.image" class="profile-img"/><br/>
   <h1>@pet.name</h1>
   <p>Age: @pet.age</p>
   <p>@pet.profile</p>
   @if(pet.status == "S") {
-    @pet.name has already been adopted!
+    <p>@pet.name has already been adopted!</p>
   } else {
-    <p onclick="alert('I\'ll be a lightbox eventually...');">Adopt @pet.name!</p>
+    <p onclick="alert('Contact @pet.shelter.name on @pet.shelter.phone');">Adopt @pet.name!</p>
     <p>Can't adopt? Why not feed @pet.name for a week instead? 
     <script src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=dave@@caffeinateddave.com"
       data-button="donate"
@@ -23,4 +23,5 @@
       async="async"></script>
     </p>
   }
+  <p>Go back to <a href="@routes.Application.index">other pets</a> looking for homes</p> 
 }

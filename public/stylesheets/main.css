@@ -11,3 +11,23 @@ html, body, main-col .container {
 	height: 100%;
 	background-color: #eee;
 }
+
+.error, .success {
+	text-align: center;
+	margin: 3px 0;
+}
+
+div.error {
+	border: 2px solid #966;
+	background: #daa;
+}
+div.success {
+	border: 2px solid #696;
+	background: #ada;
+}
+
+img.profile-img {
+	width: 60%;
+	position: relative; 
+	margin: 10px 20%;
+}

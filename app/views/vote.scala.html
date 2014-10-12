@@ -1,8 +1,8 @@
 @(pet: Pet)(implicit flash : Flash)
 
-@main("DO YOU LIEK PUPPIES!?") {
+@main("Adoptr") {
   <div class="row-fluid">
-    <div class="main-col col-lg-2 clearfix col-md-2 col-sm-2 col-xs-2" style="text-align: center; min-height: 100%; position: relative;">
+    <div class="main-col col-lg-2 clearfix col-md-2 col-sm-2 col-xs-2" style="text-align: center;">
       <a href="@routes.Application.vote(pet.id, "N")">
         <img src="@routes.Assets.at("images/cross.png")" style="vertical-align: middle; width:100%;"/>
       </a>

@@ -30,11 +30,11 @@ object Pet {
     get[String]("species") ~
     get[String]("status") ~
     get[Long]("shelter_id") map {
-      case (i~n~a~im~p~s~st~sh) => Pet(i, n, a, "https://s3-eu-west-1.amazonaws.com/fluffypets/" + im, p, getSpecies(s), Shelter.getById(sh).getOrElse(Shelter.dummy), st)
+      case (i~n~a~im~p~s~st~sh) => Pet(i, n, a, "https://s3-eu-west-1.amazonaws.com/fluffypets/" + im, p, getSpecies(s), Shelter.getById(sh), st)
     }
   }
 
-  val dummy = Pet(-1, "Mookie", 2, "/assets/images/moose.jpg", "This is a Mookie, the Moose of failure! He appears when something's gone wrong, and we don't want to break the flow, so just stick some placeholder information in instead.", 'Moose, Shelter.getById(-1).getOrElse(Shelter.dummy), "S")
+  val dummy = Pet(-1, "Mookie", 2, "/assets/images/moose.jpg", "This is Mookie, the Moose of failure! He appears when something's gone wrong, and we don't want to break the flow, so just stick some placeholder information in instead.", 'Moose, Shelter.dummy, "S")
 
   
   def getById(id: Long): Pet = {

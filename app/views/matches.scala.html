@@ -1,6 +1,6 @@
 @(matches: List[Pet])(implicit flash : Flash)
 
-@main("PICK A PUPPIE!") {
+@main("Adoptr") {
   @for((pet, i) <- matches.zipWithIndex) {
     @if(i % 3 == 0) {
       <div class="row">
@@ -15,7 +15,7 @@
       </div>
     }
   }
-  <div style="width: 100%; text-align: center; clear:both;">
+  <div style="padding: 10px 0; width: 100%; text-align: center; clear:both;">
     <a href="@routes.Application.search("X")">Start Again</a>
   </div>
 }

@@ -23,7 +23,8 @@ object Application extends Controller {
   }
   
   def index() = Action { implicit request =>
-    request.cookies.get("searchString") match {
+    if (getIdList("wantPets", request).length >= 6) {Redirect(routes.Application.review).flashing("success" -> "You've found some pets you like - why not take a closer look at them?")}
+    else request.cookies.get("searchString") match {
       case Some(c) if (c.value == "C") => Ok(views.html.vote(Pet.getRandomPet("C", getIdList("rejectPets", request) ::: getIdList("wantPets", request))))
       case Some(c) if (c.value == "D") => Ok(views.html.vote(Pet.getRandomPet("D", getIdList("rejectPets", request) ::: getIdList("wantPets", request))))
       case Some(c) => Ok(views.html.vote(Pet.getRandomPet("A", getIdList("rejectPets", request) ::: getIdList("wantPets", request))))
@@ -60,7 +61,7 @@ object Application extends Controller {
   }
 
   def shelter(id: Long) = Action { implicit request =>
-    val shelter = Shelter.getById(id).getOrElse(Shelter.dummy)
+    val shelter = Shelter.getById(id)
     Ok("A shelter profile for " + shelter.name + "!")
   }
 
