@@ -42,7 +42,12 @@ object Application extends Controller {
       case "N"  => Cookie("rejectPets", newList.mkString("|"))
       case _    => Cookie("", "")
     }
-    Redirect(routes.Application.index).withCookies(newCookie)
+    
+    (vote) match {
+      case "Y" => Redirect(routes.Application.index).withCookies(newCookie).flashing(("success", "Saved"))
+      case "N" => Redirect(routes.Application.index).withCookies(newCookie).flashing(("success", "Skipped"))
+    }
+    
   }
 
   def review = Action { implicit request =>

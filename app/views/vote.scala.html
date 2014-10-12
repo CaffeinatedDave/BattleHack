@@ -28,9 +28,11 @@
 var img =$("#the-image")[0];
 var hammertime = new Hammer(img);
 hammertime.on('swipeleft', function(ev) {
+    console.log('left');
     window.location.href = $('#nope').attr('href');
 });
 hammertime.on('swiperight', function(ev) {
+    console.log('right');
     window.location.href = $('#yup').attr('href');
 });
 </script>
