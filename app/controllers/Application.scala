@@ -69,6 +69,10 @@ object Application extends Controller {
     Ok("A shelter profile for " + shelter.name + "!")
   }
 
+  def about = Action { implicit request =>
+    Ok(views.html.about())
+  }
+  
   // Catch all action...
   def redirect(path: Any) = Action { implicit request =>
     Redirect(routes.Application.index).flashing("error" -> "Not found")

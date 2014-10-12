@@ -1,4 +1,4 @@
-@(implicit flash: Flash)
+@()(implicit flash: Flash)
 
 @main("Adoptr :: About") {
   <div class="jumbotron">
@@ -7,17 +7,19 @@
       <p> Adoptr is built to aggregate animal data from shelters around the UK. Inspired by Battersea, we aim to provide the user 
       a quicker, clearer way to see which animals are available for adoption at any one time, while adding accessible links for 
       donations to come in to the shelters themselves.</p> 
+      <a href="@routes.Application.index">Check it out</a>
       <h3> How </h3>
-      <ul>
-        <li>Scala</li>
-        <li>Play</li>
-        <li>Heroku</li>
-        <li>Python</li>
-        <li>S3 Amazon Webservice</li>
-      </ul>
+      <p>Scala, Play, Heroku, Python, Amazon Webservice S3</p>
       <h3> Attribution </h3>
-      <p>Thanks to the following for making their stuff available via CC:</p>
-      TODO
+      <p>Thanks to the following for making their stuff available for free:</p>
+      <p>Icons:<br/> 
+      <a href="https://www.iconfinder.com/iconka" target="_new">Denis Sazhin</a><br/>
+      <a href="https://www.iconfinder.com/iconsets/49handdrawing">Aleksandra Wolska </a></p>
+      <p>Code:<br/>
+      <a href="https://typesafe.com/">Typesafe</a><br/>
+      <a href="https://www.heroku.com/">Heroku</a><br/>
+      <a href="http://aws.amazon.com/s3/">Amazon S3</a><br/>
+      <a href="http://scrapy.org/">Scrapy</a><br/>
     </div>
   </div>
 }
