@@ -6,8 +6,9 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        
         <meta name="format-detection" content="telephone=no">
         <link rel="apple-touch-icon" sizes="152x152" href="@routes.Assets.at("images/touch-icon-ipad-retina.png")">
         <title>@title</title>
@@ -29,5 +30,13 @@
         @content
     </div>
     </div>
+    
+    <script type="text/javascript">
+    $(document).on('click', 'a', function (e) {
+      e.preventDefault();
+      window.location = $(e.target).attr("href");
+      return false;
+    });
+    <script>
     </body>
 </html>
