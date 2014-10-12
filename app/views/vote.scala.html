@@ -4,15 +4,15 @@
 <div class="jumbotron">
   <div class="row-fluid">
     <div class="main-col col-lg-2 clearfix col-md-2 col-sm-2 col-xs-2" style="text-align: center;">
-      <a href="@routes.Application.vote(pet.id, "N")">
+      <a id="nope" href="@routes.Application.vote(pet.id, "N")">
         <img src="@routes.Assets.at("images/cross.png")" style="vertical-align: middle; width:100%;"/>
       </a>
     </div>
-    <div class="main-col col-lg-8 clearfix col-md-8 col-sm-8 col-xs-8" style="text-align: center;">
+    <div id="the-image" class="main-col col-lg-8 clearfix col-md-8 col-sm-8 col-xs-8" style="text-align: center;">
       <img src="@pet.image" style="width: 100%; position: relative;"/><br/>
     </div>
     <div class="main-col col-lg-2 clearfix col-md-2 col-sm-2 col-xs-2" style="text-align: center;">
-      <a href="@routes.Application.vote(pet.id, "Y")">
+      <a id="yup" href="@routes.Application.vote(pet.id, "Y")">
         <img src="@routes.Assets.at("images/tick.png")" style="vertical-align: middle; width:100%;"/>
       </a>
     </div>
@@ -23,4 +23,13 @@
     <a href="@routes.Application.search("X")" />Restart</a>
   </div>
 </div>
+<script>
+var hammertime = new Hammer($("#the-image")[0]);
+hammertime.on('swipeleft', function(ev) {
+    window.location.href = $('#nope').attr('href');
+});
+hammertime.on('swiperight', function(ev) {
+    window.location.href = $('#yup').attr('href');
+});
+</script>
 }
