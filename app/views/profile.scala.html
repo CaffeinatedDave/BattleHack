@@ -10,14 +10,14 @@
   } else {
     @if(pet.status == "R") {
       <div style="width:100%;">
-        <div class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="width: auto; margin:auto;">
+        <div class="btn btn-primary btn-lg btn-danger" data-toggle="modal" data-target="#myModal" style="width: auto; margin:auto;">
           @pet.name has already been reserved. Click here for more information
         </div>
       <div>
     } else {
       <!-- Button trigger modal -->
       <div style="width:100%;">
-        <div class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="width: auto; margin:auto;">
+        <div class="btn btn-primary btn-lg btn-warning" data-toggle="modal" data-target="#myModal" style="width: auto; margin:auto;">
           @pet.name is up for adoption. Click here for more information
         </div>
       <div>
@@ -25,7 +25,7 @@
     <div class="row-fluid" style="margin-top: 10px; margin-bottom: 10px; text-align: center">
       <div class="main-col col-lg-12 clearfix col-md-12 col-sm-12 col-xs-12">Can't adopt? Why not feed @pet.name instead?</div>
       <div class="main-col col-lg-4 clearfix col-md-4 col-sm-4 col-xs-4">One day:
-        <script src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=@pet.shelter.email"
+        <script src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=@pet.shelter.paypal"
           data-button="donate"
           data-name="Feed @pet.name for a day"
           data-quantity="1"
@@ -39,7 +39,7 @@
         </script>
       </div>
       <div class="main-col col-lg-4 clearfix col-md-4 col-sm-4 col-xs-4">One week:
-        <script src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=@pet.shelter.email"
+        <script src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=@pet.shelter.paypal"
           data-button="donate"
           data-name="Feed @pet.name for a week"
           data-quantity="1"
@@ -53,7 +53,7 @@
         </script>
       </div>
       <div class="main-col col-lg-4 clearfix col-md-4 col-sm-4 col-xs-4">One month:
-        <script src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=@pet.shelter.email"
+        <script src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=@pet.shelter.paypal"
           data-button="donate"
           data-name="Feed @pet.name for a month"
           data-quantity="1"
@@ -81,16 +81,21 @@
           <h4 class="modal-title" id="myModalLabel">Adopt @pet.name</h4>
         </div>
         <div class="modal-body">
-          <p>We are thrilled you have shown an interest in adopting @pet.name.<br/> Please contact @pet.shelter.name on 
-          @if(pet.shelter.phone != "") {
-            @pet.shelter.phone
-            @if(pet.shelter.email != "") {
-              or <a href="mailto:@pet.shelter.email">email</a>
-            }
-          } else {@if(pet.shelter.email != "") {
-            <a href="mailto:@pet.shelter.email">email</a>
-          }}
-          and we can start the process to get @pet.name on their way to you.</p>
+          @if(pet.status == "A") {
+            <p>We are thrilled you have shown an interest in adopting @pet.name.<br/> Please contact @pet.shelter.name on 
+            @if(pet.shelter.phone != "") {
+              @pet.shelter.phone
+              @if(pet.shelter.email != "") {
+                or <a href="mailto:@pet.shelter.email">email</a>
+              }
+            } else {@if(pet.shelter.email != "") {
+              <a href="mailto:@pet.shelter.email">email</a>
+            }}
+            and we can start the process to get @pet.name on their way to you.</p>
+          } else {
+            <p>We are thrilled you have shown an interest in adopting @pet.name.<br/> Unfortunately, they have already been reserved
+            by someone else. Why not <a href="@routes.Application.index">keep looking?</a></p>
+          }
           <p>About @pet.shelter.name:</p>
           <p>@pet.shelter.info</p>
         </div>

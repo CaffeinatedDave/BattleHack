@@ -10,7 +10,7 @@ import scala.util.parsing.combinator._
 import controllers.routes
 
 case class Address(lines: List[String])
-case class Shelter(id: Long, name: String, addr: Address, phone: String, email: String, info: String)
+case class Shelter(id: Long, name: String, addr: Address, phone: String, email: String, info: String, paypal:String)
 
 object Shelter {
   val parse = {
@@ -22,12 +22,13 @@ object Shelter {
     get[String]("addr_4") ~
     get[String]("contact_no") ~
     get[String]("contact_email") ~
-    get[String]("info") map {
-      case (i~n~a1~a2~a3~a4~p~e~in) => Shelter(i, n, Address(List(a1, a2, a3, a4)), p, e, in) 
+    get[String]("info") ~ 
+    get[String]("paypal") map {
+      case (i~n~a1~a2~a3~a4~p~e~in~pp) => Shelter(i, n, Address(List(a1, a2, a3, a4)), p, e, in, pp) 
     }
   }
 
-  val dummy = Shelter(-1, "Shelter", Address(List("Made up", "Data", "Because", "It broke")), "0203 123 4567", "broken@example.com", "DUMMY DATA - SOMETHING'S BROKEN!")
+  val dummy = Shelter(-1, "Shelter", Address(List("Made up", "Data", "Because", "It broke")), "0203 123 4567", "broken@example.com", "DUMMY DATA - SOMETHING'S BROKEN!", "dave@caffeinateddave.com")
 
   def getById(id: Long): Shelter = {
     DB.withConnection { implicit c =>
