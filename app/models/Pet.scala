@@ -7,10 +7,10 @@ import play.api.Play.current
 import java.sql.SQLException
 import play.api.Logger
 import scala.util.parsing.combinator._
-import controllers.routes
+import controllers._
 import scala.util.Random
 
-case class Pet(id: Long, name: String, age: Int, image: String, profile: String, species: Symbol, shelter: Shelter)
+case class Pet(id: Long, name: String, age: Int, image: String, profile: String, species: Symbol, shelter: Shelter, status: String)
 
 object Pet {
   def getSpecies(name: String): Symbol = {
@@ -28,12 +28,13 @@ object Pet {
     get[String]("image") ~ 
     get[String]("profile") ~
     get[String]("species") ~
+    get[String]("status") ~
     get[Long]("shelter_id") map {
-      case (i~n~a~im~p~s~sh) => Pet(i, n, a, "https://s3-eu-west-1.amazonaws.com/fluffypets/" + im, p, getSpecies(s), Shelter.getById(sh).getOrElse(Shelter.dummy))
+      case (i~n~a~im~p~s~st~sh) => Pet(i, n, a, "https://s3-eu-west-1.amazonaws.com/fluffypets/" + im, p, getSpecies(s), Shelter.getById(sh).getOrElse(Shelter.dummy), st)
     }
   }
 
-  val dummy = Pet(-1, "Mookie", 2, "/assets/images/moose.jpg", "This is a pet, please adopt it!", 'Moose, Shelter.getById(-1).getOrElse(Shelter.dummy))
+  val dummy = Pet(-1, "Mookie", 2, "/assets/images/moose.jpg", "This is a Mookie, the Moose of failure! He appears when something's gone wrong, and we don't want to break the flow, so just stick some placeholder information in instead.", 'Moose, Shelter.getById(-1).getOrElse(Shelter.dummy), "S")
 
   
   def getById(id: Long): Pet = {
@@ -44,11 +45,11 @@ object Pet {
     }
   }
   
-  def getRandomPet(reject: List[Long]): Pet = {
+  def getRandomPet(species: String, reject: List[Long]): Pet = {
     val allPets = DB.withConnection { implicit c =>
       SQL("""
-        select * from tPet
-      """).as(parse*).filter(x => !reject.contains(x.id))
+        select * from tPet where status='A' and ({species} = 'A' or {species} = species)
+      """).on('species -> species).as(parse*).filter(x => !reject.contains(x.id))
     }
 
     if (allPets.isEmpty) dummy
@@ -56,7 +57,7 @@ object Pet {
   }
 
   def getPetList(wanted: List[Long]): List[Pet] = {
-    List(getRandomPet(List()))
+    for (id <- wanted) yield Pet.getById(id)
   }
   
   def create(name: String, age: Int, image: String, profile: String, species: String, shelter: Long) {

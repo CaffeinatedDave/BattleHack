@@ -1,22 +1,24 @@
 @(pet: Pet)(implicit flash : Flash)
 
 @main("DO YOU LIEK PUPPIES!?") {
-  <img src="@pet.image" style="width: 100%; position: relative;"/><br/>
   <div class="row-fluid">
-    <div class="main-col col-lg-4 clearfix col-md-4 col-sm-4 col-xs-4" style="text-align: center;">
+    <div class="main-col col-lg-2 clearfix col-md-2 col-sm-2 col-xs-2" style="text-align: center; min-height: 100%; position: relative;">
       <a href="@routes.Application.vote(pet.id, "N")">
-        <img src="@routes.Assets.at("images/cross.png")">
+        <img src="@routes.Assets.at("images/cross.png")" style="vertical-align: middle; width:100%;"/>
       </a>
     </div>
-    <div class="main-col col-lg-4 clearfix col-md-4 col-sm-4 col-xs-4" style="text-align: center;">
-      <a href="@routes.Application.profile(pet.id)" />
-        Profile
-      </a>
+    <div class="main-col col-lg-8 clearfix col-md-8 col-sm-8 col-xs-8" style="text-align: center;">
+      <img src="@pet.image" style="width: 100%; position: relative;"/><br/>
     </div>
-    <div class="main-col col-lg-4 clearfix col-md-4 col-sm-4 col-xs-4" style="text-align: center;">
+    <div class="main-col col-lg-2 clearfix col-md-2 col-sm-2 col-xs-2" style="text-align: center;">
       <a href="@routes.Application.vote(pet.id, "Y")">
-        <img src="@routes.Assets.at("images/tick.png")" />
+        <img src="@routes.Assets.at("images/tick.png")" style="vertical-align: middle; width:100%;"/>
       </a>
     </div>
+  </div>
+  <div style="text-align: center; clear:both;">
+    <a href="@routes.Application.profile(pet.id)" />Profile</a><br/>
+    <a href="@routes.Application.review" />Review Matches</a><br/>
+    <a href="@routes.Application.search("X")" />Restart</a>
   </div>
 }
