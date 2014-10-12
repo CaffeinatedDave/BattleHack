@@ -9,9 +9,7 @@
       </a>
     </div>
     <div id="the-image" class="main-col col-lg-8 clearfix col-md-8 col-sm-8 col-xs-8" style="text-align: center;">
-      <div></div>
-      <div><img ondragstart="return false" src="@pet.image" style="width: 100%; position: relative;"/></div>
-      <div></div>
+      <img ondragstart="return false" src="@pet.image" style="width: 100%; position: relative;"/><br/>
     </div>
     <div class="main-col col-lg-2 clearfix col-md-2 col-sm-2 col-xs-2" style="text-align: center;">
       <a id="yup" href="@routes.Application.vote(pet.id, "Y")">
@@ -27,24 +25,15 @@
   </div>
 </div>
 <script>
-$(document).ready(function(){
-    $('#the-image').fadeTo(0, 0).slick({
-      arrows:false,
-      infinite:false,
-      speed: 200,
-      onAfterChange: function(slide, index) {
-          if(index === 0) {
-              window.location.href = $('#nope').attr('href');
-          } else if (index == 2) {
-              window.location.href = $('#yup').attr('href');
-          }
-      }
-    }).slickGoTo(1);
-
-    setTimeout(function() {
-        console.log('hi');
-        $('#the-image').fadeTo(500, 100);
-    }, 200);
+var img =$("#the-image")[0];
+var hammertime = new Hammer(img);
+hammertime.on('swipeleft', function(ev) {
+    console.log('left');
+    window.location.href = $('#nope').attr('href');
+});
+hammertime.on('swiperight', function(ev) {
+    console.log('right');
+    window.location.href = $('#yup').attr('href');
 });
 </script>
 }
