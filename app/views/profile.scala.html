@@ -8,12 +8,20 @@
   @if(pet.status == "S") {
     <p>@pet.name has already been adopted!</p>
   } else {
-    <!-- Button trigger modal -->
-    <div style="width:100%;">
-      <div class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="width: auto; margin:auto;">
-        Adopt @pet.name
-      </div>
-    <div>
+    @if(pet.status == "R") {
+      <div style="width:100%;">
+        <div class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="width: auto; margin:auto;">
+          @pet.name has already been reserved. Click here for more information
+        </div>
+      <div>
+    } else {
+      <!-- Button trigger modal -->
+      <div style="width:100%;">
+        <div class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="width: auto; margin:auto;">
+          @pet.name is up for adoption. Click here for more information
+        </div>
+      <div>
+    }
     <div class="row-fluid" style="margin-top: 10px; margin-bottom: 10px; text-align: center">
       <div class="main-col col-lg-12 clearfix col-md-12 col-sm-12 col-xs-12">Can't adopt? Why not feed @pet.name instead?</div>
       <div class="main-col col-lg-4 clearfix col-md-4 col-sm-4 col-xs-4">One day:
