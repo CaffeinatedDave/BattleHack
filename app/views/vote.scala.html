@@ -9,7 +9,7 @@
       </a>
     </div>
     <div id="the-image" class="main-col col-lg-8 clearfix col-md-8 col-sm-8 col-xs-8" style="text-align: center;">
-      <img src="@pet.image" style="width: 100%; position: relative;"/><br/>
+      <img ondragstart="return false" src="@pet.image" style="width: 100%; position: relative;"/><br/>
     </div>
     <div class="main-col col-lg-2 clearfix col-md-2 col-sm-2 col-xs-2" style="text-align: center;">
       <a id="yup" href="@routes.Application.vote(pet.id, "Y")">
@@ -25,7 +25,8 @@
   </div>
 </div>
 <script>
-var hammertime = new Hammer($("#the-image")[0]);
+var img =$("#the-image")[0];
+var hammertime = new Hammer(img);
 hammertime.on('swipeleft', function(ev) {
     window.location.href = $('#nope').attr('href');
 });
