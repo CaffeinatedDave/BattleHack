@@ -8,20 +8,86 @@
   @if(pet.status == "S") {
     <p>@pet.name has already been adopted!</p>
   } else {
-    <p onclick="alert('Contact @pet.shelter.name on @pet.shelter.phone');">Adopt @pet.name!</p>
-    <p>Can't adopt? Why not feed @pet.name for a week instead? 
-    <script src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=dave@@caffeinateddave.com"
-      data-button="donate"
-      data-name="Feed @pet.name for a week"
-      data-quantity="1"
-      data-amount="10.00"
-      data-currency="GBP"
-      data-shipping="0"
-      data-tax="0"
-      data-callback="@routes.Application.profile(pet.id)"
-      data-env="sandbox"
-      async="async"></script>
-    </p>
+    <!-- Button trigger modal -->
+    <div style="width:100%;">
+      <div class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" style="width: auto; margin:auto;">
+        Adopt @pet.name
+      </div>
+    <div>
+    <div class="row-fluid" style="margin-top: 10px; margin-bottom: 10px; text-align: center">
+      <div class="main-col col-lg-12 clearfix col-md-12 col-sm-12 col-xs-12">Can't adopt? Why not feed @pet.name instead?</div>
+      <div class="main-col col-lg-4 clearfix col-md-4 col-sm-4 col-xs-4">One day:
+        <script src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=@pet.shelter.email"
+          data-button="donate"
+          data-name="Feed @pet.name for a day"
+          data-quantity="1"
+          data-amount="2.00"
+          data-currency="GBP"
+          data-shipping="0"
+          data-tax="0"
+          data-callback="@routes.Application.profile(pet.id)"
+          data-env="sandbox"
+          async="async">
+        </script>
+      </div>
+      <div class="main-col col-lg-4 clearfix col-md-4 col-sm-4 col-xs-4">One week:
+        <script src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=@pet.shelter.email"
+          data-button="donate"
+          data-name="Feed @pet.name for a week"
+          data-quantity="1"
+          data-amount="10.00"
+          data-currency="GBP"
+          data-shipping="0"
+          data-tax="0"
+          data-callback="@routes.Application.profile(pet.id)"
+          data-env="sandbox"
+          async="async">
+        </script>
+      </div>
+      <div class="main-col col-lg-4 clearfix col-md-4 col-sm-4 col-xs-4">One month:
+        <script src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=@pet.shelter.email"
+          data-button="donate"
+          data-name="Feed @pet.name for a month"
+          data-quantity="1"
+          data-amount="50.00"
+          data-currency="GBP"
+          data-shipping="0"
+          data-tax="0"
+          data-callback="@routes.Application.profile(pet.id)"
+          data-env="sandbox"
+          async="async">
+        </script>
+      </div>
+    </div>
   }
-  <p>Go back to <a href="@routes.Application.index">other pets</a> looking for homes</p> 
+  <div style="padding-top: 10px; width:100%; text-align:center;">
+    Go back to <a href="@routes.Application.index">other pets</a> looking for homes
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+          <h4 class="modal-title" id="myModalLabel">Adopt @pet.name</h4>
+        </div>
+        <div class="modal-body">
+          <p>We are thrilled you have shown an interest in adopting @pet.name.<br/> Please contact @pet.shelter.name on 
+          @if(pet.shelter.phone != "") {
+            @pet.shelter.phone
+            @if(pet.shelter.email != "") {
+              or <a href="mailto:@pet.shelter.email">email</a>
+            }
+          } else {@if(pet.shelter.email != "") {
+            <a href="mailto:@pet.shelter.email">email</a>
+          }}
+          and we can start the process to get @pet.name on their way to you.</p>
+          <p>About @pet.shelter.name:</p>
+          <p>@pet.shelter.info</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 
 }
